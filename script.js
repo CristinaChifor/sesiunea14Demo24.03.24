@@ -82,7 +82,9 @@ const posts = [
 const body = document.querySelector('body');
 let htmlContent = '';
 for (const post of posts) {
-    const card = `<article class="card">
+    const article = document.createElement('article');
+    article.classList.add('card');
+    const card = `
     <p>${post.title}</p>
     
     <ol>
@@ -92,13 +94,17 @@ for (const post of posts) {
     
     <label for="comment">Comment</label>
     <input type="text" id="comment" name="comment" value ="${post.comment}>
-    <footer></footer>
-    </article>`
+    <footer>
+    <strong>Author:</strong> ${post.author} <span></span>
+    </footer>
+   `;
+   article.innerHTML = card;
+   body.appendChild(article);
 
     htmlContent += card;
 }
 
-body.innerHTML = htmlContent;
+//body.innerHTML = htmlContent;
 //body.textContent = htmlContent;
 
 // innerText vs textContent
@@ -113,5 +119,71 @@ console.log(firstp.textContent);
 
 // 2. getAttribute și setAttribute: 
 // Aceste metode permit accesarea și modificarea atributelor unui element.
+
+const firstInput = document.querySelectorAll('input');
+console.log('input: ', firstInput);
+console.log('....');
+
+firstInput[0].readOnly = true;
+
+//firstInput[1].setAttribute('readonly', true);
+
+let firstInputValue = firstInput[0].getAttribute('value');
+console.log('first value: ', firstInputValue);
+
+// 3. classList 
+// Această proprietate este utilă pentru a lucra cu clasele CSS ale unui element. Permite adăugarea, eliminarea sau verificarea claselor.
+
+const allP = document.querySelectorAll('p');
+for (const paragraph of allP) {
+    paragraph.classList.add('red', 'underline');
+}
+
+let index = 0;
+for(const paragraph of allP) {
+    if (index % 2 > 0) {
+        paragraph.classList.remove('red');
+    }
+
+    index++;
+}
+
+// 4. style
+// Această proprietate permite accesarea și modificarea stilurilor CSS ale unui element.
+
+for(const paragraph of allP) {
+    paragraph.style.textTransform = 'uppercase';
+}
+
+// Crearea unui element
+
+// 1. document.createElement() este folosit pentru a crea un element nou. 
+// Acest element este creat, dar nu este încă atașat la nici o parte a DOM-ului
+
+const newParagraph = document.createElement('p');
+newParagraph.textContent = 'My new paragraph';
+console.log(newParagraph);
+
+// .appendChild(newElement) este folosit pentru a adăuga un element ca ultim copil în elementul ce apelează metoda.
+
+body.appendChild(newParagraph);
+
+const span = document.createElement('span')
+span.textContent = ' Altceva';
+span.classList.add('red');
+newParagraph.appendChild(span);
+
+// Ștergerea unui element
+
+/**
+ * 1.Identificarea elementului:
+Utilizăm metode precum getElementById, getElementsByClassName, getElementsByTagName, sau querySelector pentru a identifica elementul pe care dorim să-l ștergem.
+2. Ștergerea elementului:
+Se face prin metoda remove() pentru a șterge un element din DOM.
+ */
+
+const allCards = document.querySelectorAll('.card');
+allCards[allCards.length - 1].remove();
+
 
 
