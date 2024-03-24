@@ -11,3 +11,7 @@
 .underline {
     text-decoration: underline;
 }
+
+#interactive-text {
+    cursor: pointer;
+}
